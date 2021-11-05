@@ -1,7 +1,6 @@
 
 
-import React, { useEffect, useState } from 'react'
-import { commerce } from './lib/Commerce'
+import React, { useEffect } from 'react'
 import Navbar from './components/navbar/Navbar'
 import Products from './components/products/Products'
 import { startSettingCart, startSettingProducts } from './actions/commerce'
@@ -21,7 +20,7 @@ const App = () => {
    useEffect(()=>{
       dispatch(startSettingProducts());
       dispatch(startSettingCart());
-   },[]);
+   },[dispatch]);
 
  
    return (

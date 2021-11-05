@@ -11,8 +11,12 @@ import {
 
 import {FcLinux } from 'react-icons/fc'
 import { HiShoppingCart } from 'react-icons/hi'
+import { useMediaQuery } from '@chakra-ui/media-query'
 
 const Navbar = () => {
+
+   const [isLgDevice] = useMediaQuery("(min-width: 62em)")
+
    return (
       <HStack 
          width='full'
@@ -37,11 +41,11 @@ const Navbar = () => {
          <HStack width='full'
             justify='flex-end'
          >
-            
+         
             <Button
                leftIcon={<HiShoppingCart />}
             >
-             <Text display={{base:'none', lg:'flex'}}>Shopping Bag (0) </Text>
+             <Text> { isLgDevice ? 'Shopping Bag (0)' : '(0)' } </Text>
             </Button>
          </HStack>
       </HStack>
