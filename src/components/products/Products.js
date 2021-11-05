@@ -2,13 +2,19 @@
 import { 
    Flex,
 } from '@chakra-ui/react'
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { startSettingProducts } from '../../actions/commerce'
 import Product from './Product'
 
 
 
 
-const Products = ({products}) => {
+const Products = () => {
+  
+   const { products } = useSelector(state => state.products);
+
+   
 
 
    return (
@@ -20,9 +26,11 @@ const Products = ({products}) => {
             marginTop='0'
          >
             {
-               products.map(product => (
+               products
+               ? products.map(product => (
                   <Product key={product.id} product={product}/>
                ))
+               : <div>Loading...</div>
             }
             
          </Flex>
@@ -30,4 +38,4 @@ const Products = ({products}) => {
    )
 }
 
-export default Products
+export default Products;

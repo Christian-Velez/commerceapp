@@ -11,7 +11,6 @@ import {
 import { MdOutlineAddShoppingCart } from 'react-icons/md';
 
 const Product = ({ product }) => {
-   console.log(product);
 
    const { description, name, price } = product;
 
