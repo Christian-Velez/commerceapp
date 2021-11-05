@@ -6,6 +6,7 @@ import {
    Heading,
    Icon,
    Button,
+   Text,
 } from '@chakra-ui/react'
 
 import {FcLinux } from 'react-icons/fc'
@@ -40,11 +41,11 @@ const Navbar = () => {
             <Button
                leftIcon={<HiShoppingCart />}
             >
-             Shopping Bag (0)  
+             <Text display={{base:'none', lg:'flex'}}>Shopping Bag (0) </Text>
             </Button>
          </HStack>
       </HStack>
    )
 }
 
-export default Navbar
+export default Navbar;
