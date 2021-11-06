@@ -18,7 +18,7 @@ const Cart = () => {
       >
          <Heading>Shopping cart</Heading>
 
-         {
+         
             <Stack
                direction={{
                   base: 'column',
@@ -32,7 +32,7 @@ const Cart = () => {
                <CartItems/>
                <OrderSummary/>
             </Stack>
-         }
+         
       </Flex>
    );
 };
