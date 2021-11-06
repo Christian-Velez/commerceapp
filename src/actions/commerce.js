@@ -44,3 +44,21 @@ export const setCart = (cart) => {
       payload: cart,
    }
 }
+
+export const startAddingToCart = (product_id, quantity) => {
+   return (async(dispatch)=>{
+      
+      const item = await commerce.cart.add(product_id,quantity);
+      
+
+      dispatch(addToCart(item.cart));
+   })
+}
+
+export const addToCart = (cart) => {
+   return {
+      type: types.addToCart,
+      payload: cart
+   }
+
+}

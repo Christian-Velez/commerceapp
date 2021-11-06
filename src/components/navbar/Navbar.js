@@ -8,14 +8,21 @@ import {
    Button,
    Text,
 } from '@chakra-ui/react'
-
 import {FcLinux } from 'react-icons/fc'
 import { HiShoppingCart } from 'react-icons/hi'
 import { useMediaQuery } from '@chakra-ui/media-query'
+import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router'
+import { Link } from 'react-router-dom'
 
 const Navbar = () => {
 
-   const [isLgDevice] = useMediaQuery("(min-width: 62em)")
+   const navigate = useNavigate();
+   
+   const [isLgDevice] = useMediaQuery("(min-width: 62em)");
+
+   const { cart } = useSelector(state => state.cart);
+
 
    return (
       <HStack 
@@ -26,6 +33,8 @@ const Navbar = () => {
          top='0'
          padding={3}
       >
+         <Link to='/'>
+
          
          <HStack width='full'>
             <Icon
@@ -38,14 +47,25 @@ const Navbar = () => {
 
          </HStack>
 
+
+         </Link>
+
          <HStack width='full'
             justify='flex-end'
          >
          
             <Button
                leftIcon={<HiShoppingCart />}
+               onClick= { () => { navigate('/cart')}}
             >
-             <Text> { isLgDevice ? 'Shopping Bag (0)' : '(0)' } </Text>
+             <Text> 
+               { 
+                  isLgDevice 
+                  ? `Shopping Cart (${cart.total_items})` 
+                  : `(${cart?.total_items})` 
+               } 
+             
+             </Text>
             </Button>
          </HStack>
       </HStack>

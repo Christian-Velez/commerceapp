@@ -9,10 +9,21 @@ import {
 } from '@chakra-ui/react';
 
 import { MdOutlineAddShoppingCart } from 'react-icons/md';
+import { startAddingToCart } from '../../actions/commerce';
+import { useDispatch } from 'react-redux';
 
 const Product = ({ product }) => {
 
-   const { description, name, price } = product;
+   const { id, description, name, price } = product;
+   const dispatch = useDispatch();
+
+
+   
+
+   const handleAddToCart = () =>{
+      dispatch(startAddingToCart(id,1));
+   }
+
 
    return (
       <VStack
@@ -55,11 +66,12 @@ const Product = ({ product }) => {
 
          <HStack width='full' justify='flex-end'>
          <Text fontWeight='bold'>
-                  {price.formatted_with_code}{' '}
+                  {price.formatted_with_code}
                </Text>
             <IconButton
                aria-label='add to cart'
                icon={<MdOutlineAddShoppingCart />}
+               onClick = { () => { handleAddToCart() } }
             ></IconButton>
          </HStack>
       </VStack>
