@@ -15,7 +15,7 @@ export const cartReducer = (state = emptyCart, action) =>{
 
          }
 
-      case types.addToCart:
+      case types.updateCart:
          return {
             ...state,
             cart: action.payload,

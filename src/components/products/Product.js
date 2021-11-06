@@ -14,14 +14,18 @@ import { useDispatch } from 'react-redux';
 
 const Product = ({ product }) => {
 
-   const { id, description, name, price } = product;
+   const { id, description, name, price, image } = product;
+
    const dispatch = useDispatch();
 
 
    
 
    const handleAddToCart = () =>{
+      
       dispatch(startAddingToCart(id,1));
+
+      
    }
 
 
@@ -32,7 +36,7 @@ const Product = ({ product }) => {
          width={{base:'full', lg:'15rem'}}
       >
          <Image
-            src='https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/mac-mini-hero-202011?wid=904&hei=840&fmt=jpeg&qlt=80&.v=1603403462000'
+            src={image.url}
             maxHeight='10rem'
          />
 
@@ -66,7 +70,7 @@ const Product = ({ product }) => {
 
          <HStack width='full' justify='flex-end'>
          <Text fontWeight='bold'>
-                  {price.formatted_with_code}
+                  {price.formatted_with_symbol}
                </Text>
             <IconButton
                aria-label='add to cart'

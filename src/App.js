@@ -18,7 +18,7 @@ import {
    useSelector,
 } from 'react-redux';
 import LoadingScreen from './components/loading/LoadingScreen';
-import Cart from './components/cart/Cart';
+import CartScreen from './components/cart/CartScreen';
 
 const App = () => {
    // const handleAddtoCart = async(product_id, quantity) =>{
@@ -55,7 +55,7 @@ const App = () => {
                         <Route exact path='/' element={<Products/>}/>
                            
 
-                        <Route exact path='/cart' element={<Cart/>}/>
+                        <Route exact path='/cart' element={<CartScreen/>}/>
 
 
                         {/* Replace to en router-dom v6.0 */}
