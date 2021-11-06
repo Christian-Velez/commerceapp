@@ -1,75 +1,77 @@
-
-
-import React from 'react'
-import { 
+import React from 'react';
+import {
    HStack,
    Heading,
    Icon,
    Button,
    Text,
-} from '@chakra-ui/react'
-import {FcLinux } from 'react-icons/fc'
-import { HiShoppingCart } from 'react-icons/hi'
-import { useMediaQuery } from '@chakra-ui/media-query'
-import { useSelector } from 'react-redux'
-import { useNavigate } from 'react-router'
-import { Link } from 'react-router-dom'
+} from '@chakra-ui/react';
+import { FcLinux } from 'react-icons/fc';
+import { HiShoppingCart } from 'react-icons/hi';
+import { useMediaQuery } from '@chakra-ui/media-query';
+import { useSelector } from 'react-redux';
+import {
+   useLocation,
+   useNavigate,
+} from 'react-router';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
-
+   const { pathname } = useLocation();
    const navigate = useNavigate();
-   
-   const [isLgDevice] = useMediaQuery("(min-width: 62em)");
 
-   const { cart } = useSelector(state => state.cart);
+   const [isLgDevice] = useMediaQuery(
+      '(min-width: 62em)'
+   );
 
+   const { cart } = useSelector(
+      (state) => state.cart
+   );
 
    return (
-      <HStack 
+      <HStack
          width='full'
          position='sticky'
          zIndex='1000'
-         bgColor='white'  
+         bgColor='white'
          top='0'
          padding={3}
       >
          <Link to='/'>
+            <HStack width='full'>
+               <Icon
+                  as={FcLinux}
+                  w='2rem'
+                  h='2rem'
+               />
 
-         
-         <HStack width='full'>
-            <Icon
-               as={FcLinux}
-               w='2rem'
-               h='2rem'
-            />
-
-            <Heading size='md'>Commerce.js</Heading>
-
-         </HStack>
-
-
+               <Heading size='md'>
+                  Commerce.js
+               </Heading>
+            </HStack>
          </Link>
 
-         <HStack width='full'
-            justify='flex-end'
-         >
-         
-            <Button
-               leftIcon={<HiShoppingCart />}
-               onClick= { () => { navigate('/cart')}}
+         {pathname === '/' && (
+            <HStack
+               width='full'
+               justify='flex-end'
             >
-             <Text> 
-               { 
-                  isLgDevice 
-                  ? `Shopping Cart (${cart.total_items})` 
-                  : `(${cart?.total_items})` 
-               } 
-             
-             </Text>
-            </Button>
-         </HStack>
+               <Button
+                  leftIcon={<HiShoppingCart />}
+                  onClick={() => {
+                     navigate('/cart');
+                  }}
+               >
+                  <Text>
+                     {isLgDevice
+                        ? `Shopping Cart (${cart.total_items})`
+                        : `(${cart?.total_items})`}
+                  </Text>
+               </Button>
+            </HStack>
+         )}
       </HStack>
-   )
-}
+   );
+};
 
 export default Navbar;

@@ -8,14 +8,19 @@ import {
    Divider,
 } from '@chakra-ui/react';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router';
 
 const OrderSummary = () => {
+
+   const navigate = useNavigate();
+
    const { cart } = useSelector(
       (state) => state.cart
    );
 
    const isEmpty = cart.line_items.length === 0;
 
+  
 
    return (
       <VStack
@@ -54,6 +59,7 @@ const OrderSummary = () => {
                bgColor: 'green.300',
             }}
             width='full'
+            onClick = { ()=> { navigate('/checkout') }}
          >
             CONTINUE TO CHECKOUT
          </Button>

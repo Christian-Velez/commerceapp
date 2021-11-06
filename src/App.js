@@ -19,6 +19,7 @@ import {
 } from 'react-redux';
 import LoadingScreen from './components/loading/LoadingScreen';
 import CartScreen from './components/cart/CartScreen';
+import CheckoutScreen from './components/checkout/CheckoutScreen';
 
 const App = () => {
    // const handleAddtoCart = async(product_id, quantity) =>{
@@ -56,6 +57,8 @@ const App = () => {
                            
 
                         <Route exact path='/cart' element={<CartScreen/>}/>
+
+                        <Route exact path='/checkout' element={<CheckoutScreen />}/>
 
 
                         {/* Replace to en router-dom v6.0 */}
