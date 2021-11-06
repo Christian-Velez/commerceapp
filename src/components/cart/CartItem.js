@@ -83,6 +83,7 @@ const CartItem = ({ product }) => {
             </VStack>
 
             <IconButton
+               alignSelf='flex-end'
                aria-label='delete-item'
                icon={<HiOutlineTrash />}
                onClick={ () => { handleDeleteItem() }}

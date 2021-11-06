@@ -34,6 +34,7 @@ const Product = ({ product }) => {
          spacing={5}
          margin={5}
          width={{base:'full', lg:'15rem'}}
+         justifyContent='space-between'
       >
          <Image
             src={image.url}

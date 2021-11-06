@@ -10,7 +10,7 @@ import PaymentForm from './PaymentForm';
 const steps = ['Shipping address', 'Payment details'];
 
 const CheckoutScreen = () => {
-   const [activeStep, setActiveStep] = useState(1);
+   const [activeStep, setActiveStep] = useState(0);
 
    const Form = () => activeStep === 0
       ?  <AddressForm />
