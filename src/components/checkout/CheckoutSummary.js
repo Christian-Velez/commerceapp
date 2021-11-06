@@ -19,7 +19,6 @@ const CheckoutSummary = () => {
       (state) => state.cart
    );
 
-   console.log(cart)
 
    return (
       <VStack

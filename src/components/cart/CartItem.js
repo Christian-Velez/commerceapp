@@ -6,33 +6,42 @@ import {
    VStack,
    Text,
    IconButton,
-   Select
+   Select,
 } from '@chakra-ui/react';
 
 import { HiOutlineTrash } from 'react-icons/hi';
-import { startRemovingFromCart, startUpdatingCartQty } from '../../actions/commerce';
+import {
+   startRemovingFromCart,
+   startUpdatingCartQty,
+} from '../../actions/commerce';
 import { useDispatch } from 'react-redux';
 import ItemOptions from './ItemOptions';
 const CartItem = ({ product }) => {
-
-   const [selectValue, setSelectValue] = useState(product.quantity);
+   const [selectValue, setSelectValue] = useState(
+      product.quantity
+   );
    const dispatch = useDispatch();
 
-   const totalPrice = (Math.round(product.price.raw * product.quantity * 100) / 100).toFixed(2);
-   
+   const totalPrice = (
+      Math.round(
+         product.price.raw *
+            product.quantity *
+            100
+      ) / 100
+   ).toFixed(2);
 
-
-
-   const handleDeleteItem = () =>{
+   const handleDeleteItem = () => {
       dispatch(startRemovingFromCart(product.id));
-   }
+   };
 
-   const handleSelectChange = (e) =>{
+   const handleSelectChange = (e) => {
       const value = e.target.value;
-      
+
       setSelectValue(value);
-      dispatch(startUpdatingCartQty(product.id, value))
-   }
+      dispatch(
+         startUpdatingCartQty(product.id, value)
+      );
+   };
 
    return (
       <HStack
@@ -75,18 +84,25 @@ const CartItem = ({ product }) => {
                   Total: ${totalPrice}
                </Text>
 
-               <Select value={ selectValue }
-                  onChange={ handleSelectChange } 
+               <Select
+                  value={selectValue}
+                  onChange={handleSelectChange}
+                  _focus={{borderColor: 'brand.200'}}
                >
-                  <ItemOptions item_id={product.product_id}/>
+                  <ItemOptions
+                     item_id={product.product_id}
+                  />
                </Select>
             </VStack>
 
             <IconButton
                alignSelf='flex-end'
                aria-label='delete-item'
+               borderRadius='none'
                icon={<HiOutlineTrash />}
-               onClick={ () => { handleDeleteItem() }}
+               onClick={() => {
+                  handleDeleteItem();
+               }}
             ></IconButton>
          </HStack>
       </HStack>

@@ -4,14 +4,15 @@ import App from './App';
 
 import { Provider } from 'react-redux'
 import { store } from './store/store';
-
-
 import { ChakraProvider } from '@chakra-ui/provider';
-import theme from './theme';
+
+import theme from './theme/index';
+
 
 
 ReactDOM.render(
    <ChakraProvider theme={theme}>
+      
       <Provider store={store}>
          <App />
       </Provider>

@@ -1,6 +1,7 @@
 import { commerce } from '../lib/Commerce';
 import { types } from '../types/types';
 
+
 //Products
 export const fetchProducts = async () => {
    const { data } =
@@ -54,13 +55,24 @@ export const startAddingToCart = (
    quantity
 ) => {
    return async (dispatch) => {
+      dispatch(isAddingToCart(true));
       const { cart } = await commerce.cart.add(
          product_id,
          quantity
       );
+
       dispatch(updateCart(cart));
+      dispatch(isAddingToCart(false));
+
    };
 };
+
+export const isAddingToCart = (bool) =>{
+   return {
+      type: types.isAddingToCart,
+      payload: bool,
+   }
+}
 
 export const startUpdatingCartQty = (
    product_id,

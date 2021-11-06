@@ -57,6 +57,7 @@ const Navbar = () => {
                justify='flex-end'
             >
                <Button
+                  borderRadius='none'
                   leftIcon={<HiShoppingCart />}
                   onClick={() => {
                      navigate('/cart');

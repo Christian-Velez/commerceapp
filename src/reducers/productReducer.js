@@ -1,6 +1,9 @@
 import { types } from "../types/types";
 
-const initialState = []
+const initialState = {
+   products: [],
+   isAddingtoCart: false,
+}
 
 
 export const productReducer = (state = initialState, action) =>{
@@ -11,6 +14,11 @@ export const productReducer = (state = initialState, action) =>{
             products: action.payload,
          }
       
+      case types.isAddingToCart:
+         return {
+            ...state,
+            isAddingtoCart: action.payload,
+         }
       default:
          return state;
    }

@@ -7,10 +7,11 @@ const ItemOptions = ({ item_id, quantity }) => {
    const { products } = useSelector(
       (state) => state.products
    );
-   const [{ inventory }] = products.filter(
-      (subproduct) => subproduct.id === item_id
-   );
-   const { available } = inventory;
+
+
+   const [ item ] = products?.filter(subproduct => subproduct.id === item_id);
+   const { inventory } = item || {};
+   const { available } = inventory || {};
 
    var options = [];
    for (var i = 1; i <= available; i++) {

@@ -54,9 +54,9 @@ const OrderSummary = () => {
             borderRadius='0'
             size='lg'
             fontSize='md'
-            bgColor='green.200'
+            bgColor='brand.200'
             _hover={{
-               bgColor: 'green.300',
+               bgColor: 'brand.300',
             }}
             width='full'
             onClick = { ()=> { navigate('/checkout') }}

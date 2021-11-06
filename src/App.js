@@ -20,6 +20,7 @@ import {
 import LoadingScreen from './components/loading/LoadingScreen';
 import CartScreen from './components/cart/CartScreen';
 import CheckoutScreen from './components/checkout/CheckoutScreen';
+import NotificationContainer from 'react-notifications/lib/NotificationContainer';
 
 const App = () => {
    // const handleAddtoCart = async(product_id, quantity) =>{
@@ -70,6 +71,7 @@ const App = () => {
                   </div>
 
                </Router>
+
             ) : (
                <LoadingScreen />
             )
