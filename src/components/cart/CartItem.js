@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
    HStack,
    Box,
@@ -10,14 +10,30 @@ import {
 } from '@chakra-ui/react';
 
 import { HiOutlineTrash } from 'react-icons/hi';
-import { startRemovingFromCart } from '../../actions/commerce';
+import { startRemovingFromCart, startUpdatingCartQty } from '../../actions/commerce';
 import { useDispatch } from 'react-redux';
+import ItemOptions from './ItemOptions';
 const CartItem = ({ product }) => {
+
+   const [selectValue, setSelectValue] = useState(product.quantity);
    const dispatch = useDispatch();
+
+   const totalPrice = (Math.round(product.price.raw * product.quantity * 100) / 100).toFixed(2);
+   
+
+
 
    const handleDeleteItem = () =>{
       dispatch(startRemovingFromCart(product.id));
    }
+
+   const handleSelectChange = (e) =>{
+      const value = e.target.value;
+      
+      setSelectValue(value);
+      dispatch(startUpdatingCartQty(product.id, value))
+   }
+
    return (
       <HStack
          width='full'
@@ -43,7 +59,7 @@ const CartItem = ({ product }) => {
                justifyContent='flex-start'
                alignItems='flex-start'
                height='8rem'
-               spacing={0}
+               spacing={1}
             >
                <Text fontWeight='bold'>
                   {product.name}
@@ -55,8 +71,14 @@ const CartItem = ({ product }) => {
                   }
                </Text>
 
-               <Select>
-                  
+               <Text fontSize='smaller'>
+                  Total: ${totalPrice}
+               </Text>
+
+               <Select value={ selectValue }
+                  onChange={ handleSelectChange } 
+               >
+                  <ItemOptions item_id={product.product_id}/>
                </Select>
             </VStack>
 

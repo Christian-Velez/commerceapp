@@ -82,6 +82,7 @@ export const startRemovingFromCart = (
       const { cart } = await commerce.cart.remove(
          product_id
       );
+
       dispatch(updateCart(cart));
    };
 };
