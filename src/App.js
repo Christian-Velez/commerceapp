@@ -3,8 +3,12 @@ import Navbar from './components/navbar/Navbar';
 import Products from './components/products/Products';
 import {
    startSettingCart,
+} from './actions/cart';
+
+import {
    startSettingProducts,
-} from './actions/commerce';
+
+} from './actions/products'
 
 import {
    BrowserRouter as Router,

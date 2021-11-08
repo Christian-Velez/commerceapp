@@ -13,7 +13,7 @@ import { HiOutlineTrash } from 'react-icons/hi';
 import {
    startRemovingFromCart,
    startUpdatingCartQty,
-} from '../../actions/commerce';
+} from '../../actions/cart';
 import { useDispatch } from 'react-redux';
 import ItemOptions from './ItemOptions';
 const CartItem = ({ product }) => {

@@ -9,7 +9,7 @@ import {
 } from '@chakra-ui/react';
 
 import { MdOutlineAddShoppingCart } from 'react-icons/md';
-import { startAddingToCart } from '../../actions/commerce';
+import { startAddingToCart } from '../../actions/cart';
 import {
    useDispatch,
    useSelector,

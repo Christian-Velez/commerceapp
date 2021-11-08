@@ -1,13 +1,9 @@
 import React from 'react';
 import {
    VStack,
-   FormControl,
-   FormLabel,
-   Input,
-   GridItem,
+   Button,
    SimpleGrid,
    Checkbox,
-   Heading,
 } from '@chakra-ui/react';
 import {
    useForm,
@@ -23,23 +19,34 @@ const AddressForm = () => {
             base: 'full',
             lg: '65%',
          }}
-         padding='0 1rem'
+         padding='1rem'
          alignItems='flex-start'
          marginBottom='4rem'
          spacing={10}
       >
-         
-         <Heading size='md'> Shipping address </Heading>
 
+         <FormProvider {...methods}>
+         <form style={{width:'100%'}}>
+            <VStack alignItems='flex-start'>
+       
+            <SimpleGrid columns={2} width='full' columnGap={3}>
+               <FormInput label='First name' name='first-name' colSpan={1} required />
+               <FormInput label='Last name' name='last-name' colSpan={1} required />
 
-         <SimpleGrid columns={2} columnGap={3} rowGap={3} w='full'>
-            <FormInput label='First name' name='first-name' required colSpan={1}/>
-            <FormInput label='Last name' name='last-name' required colSpan={1}/>
-            <FormInput label='Address' name='address' required colSpan={2}/>
-            <FormInput label='Email' name='email' required colSpan={2}/>
-            <FormInput label='City' name='city' required colSpan={1}/>
-            <FormInput label='ZIP / Postal code' name='zip' required colSpan={1}/>
-         </SimpleGrid>
+               <FormInput label='Address' name='address' colSpan={2} required />
+               <FormInput label='Email' name='email' colSpan={2} required />
+               <FormInput label='City' name='city' colSpan={1} required />
+               <FormInput label='ZIP / Postal code' colSpan={1} name='zip' required />
+            </SimpleGrid>
+        
+            <Checkbox />
+            <Button type='submit'>Submit</Button>
+                    
+            </VStack>
+           
+         </form>
+
+         </FormProvider>
       </VStack>
    );
 };
