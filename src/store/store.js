@@ -7,12 +7,16 @@ import {
 import thunk from 'redux-thunk';
 import { cartReducer } from '../reducers/cartReducer';
 import { productReducer } from '../reducers/productReducer';
+import { shippingReducer } from '../reducers/shippingReducer';
+import { tokenReducer } from '../reducers/tokenReducer';
 
 
 
 const allReducers = combineReducers({
    products: productReducer,
    cart: cartReducer,
+   shipping: shippingReducer,
+   token: tokenReducer,
 });
 
 

@@ -1,6 +1,7 @@
 
+import { commerce } from '../lib/Commerce';
 
-export const fetchProducts = async (commerce) => {
+export const fetchProducts = async () => {
    const { data } = await commerce.products.list();
    
 

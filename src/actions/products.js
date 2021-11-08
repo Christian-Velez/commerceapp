@@ -1,14 +1,8 @@
-import { commerce } from '../lib/Commerce';
+import { fetchProducts } from '../helpers/fetchProducts';
 import { types } from '../types/types';
 
 
 //Products
-export const fetchProducts = async () => {
-   const { data } =
-      await commerce.products.list();
-   return data;
-};
-
 export const startSettingProducts = () => {
    return async (dispatch) => {
       const products = await fetchProducts();
