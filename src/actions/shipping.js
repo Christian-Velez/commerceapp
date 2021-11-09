@@ -2,6 +2,7 @@
 
 import { fetchCountrySubdivisions } from '../helpers/fetchCountrySubdivisions';
 import { fetchShippingCountries } from '../helpers/fetchShippingCountries';
+import { fetchShippingOptions } from '../helpers/fetchShippingOptions';
 import { types } from '../types/types';
 
 export const setShippingCountries = (
@@ -34,18 +35,18 @@ export const startSettingShippingCountries =
             setShippingCountries(arrCountries)
          );
 
-         dispatch(setActiveCountry(arrCountries[0].id));
+         dispatch(
+            setActiveCountry(arrCountries[0].id)
+         );
       };
    };
 
-export const setActiveCountry = (country) => {
+export const setActiveCountry = (activeCountry) => {
    return {
       type: types.setActiveCountry,
-      payload: country,
-   }
-}
-
-
+      payload: activeCountry,
+   };
+};
 
 export const setSubdivisions = (subdivisions) => {
    return {
@@ -54,23 +55,26 @@ export const setSubdivisions = (subdivisions) => {
    };
 };
 
-export const setActiveSubdivision = (activeSubdivision) => {
+export const setActiveSubdivision = (
+   activeSubdivision
+) => {
    return {
       type: types.setActiveSubdivision,
       payload: activeSubdivision,
-   }
-}
+   };
+};
 
 export const startSettingSubdivisions = (
    countryCode
 ) => {
    return async (dispatch, getState) => {
-
       const { token } = getState().token;
-    
 
-      const subdivisions = await fetchCountrySubdivisions(token.id, countryCode);
-
+      const subdivisions =
+         await fetchCountrySubdivisions(
+            token.id,
+            countryCode
+         );
 
       const arrSubdivisions = Object.keys(
          subdivisions
@@ -80,7 +84,47 @@ export const startSettingSubdivisions = (
       }));
 
       dispatch(setSubdivisions(arrSubdivisions));
-      dispatch(setActiveSubdivision(arrSubdivisions[0].id));
+      dispatch(
+         setActiveSubdivision(
+            arrSubdivisions[0].id
+         )
+      );
+   };
+};
 
+
+
+export const setActiveOption = (activeOption) => {
+   return {
+      type: types.setActiveOption,
+      payload: activeOption,
+   }
+}
+
+export const setOptions = (options) => {
+   return {
+      type: types.setOptions,
+      payload: options,
+   };
+};
+
+export const startSettingOptions = (
+   country,
+   region
+) => {
+   return async(dispatch, getState) => {
+      const { token } = getState().token;
+
+      //options is an array
+      const options = await fetchShippingOptions(
+         token.id,
+         country,
+         region
+      );
+
+
+
+      dispatch(setOptions(options));
+      dispatch(setActiveOption(options[0].id));
    };
 };

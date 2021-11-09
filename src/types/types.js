@@ -15,6 +15,10 @@ export const types = {
    setSubdivisions: '[Shipping] Set subdivisions for each country selected',
    setActiveSubdivision: '[Shipping] Set active subdivision',
 
+
+   setOptions: '[Shipping] Set shipping options',
+   setActiveOption: '[Shipping] Set active option',
+
    
 
    setToken: '[Token] Set checkout token',

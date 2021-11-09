@@ -39,6 +39,19 @@ export const shippingReducer = (
             activeSubdivision: action.payload,
          }
 
+
+      case types.setOptions:
+         return {
+            ...state,
+            Options: action.payload,
+         }
+      
+      case types.setActiveOption:
+         return {
+            ...state,
+            activeOption: action.payload,
+         }
+
       default:
          return state;
    }

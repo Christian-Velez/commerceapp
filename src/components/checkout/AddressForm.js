@@ -3,17 +3,18 @@ import {
    VStack,
    Button,
    SimpleGrid,
-
 } from '@chakra-ui/react';
 import {
    useForm,
    FormProvider,
 } from 'react-hook-form';
-import FormInput from './FormInput';
+
 import { useDispatch, useSelector } from 'react-redux';
-import { startSettingShippingCountries, startSettingSubdivisions } from '../../actions/shipping';
+import { startSettingOptions, startSettingShippingCountries, startSettingSubdivisions } from '../../actions/shipping';
+import FormInput from './FormInput';
 import SelectCountry from './selects/SelectCountry';
 import SelectSubdivision from './selects/SelectSubdivision';
+import SelectShippingOptions from './selects/SelectShippingOptions';
 
 const AddressForm = () => {
    const methods = useForm();
@@ -21,10 +22,11 @@ const AddressForm = () => {
 
    const { 
       activeCountry, 
+      activeSubdivision,
    } = useSelector(state => state.shipping);
   
 
-   // Set all available countries when addressform charge.
+   // Set all available countries when addressform charges
    useEffect(() => {
       dispatch(startSettingShippingCountries());
    }, [dispatch]);
@@ -34,6 +36,10 @@ const AddressForm = () => {
    useEffect(()=>{
       if (activeCountry) dispatch(startSettingSubdivisions(activeCountry));
    }, [activeCountry, dispatch])
+
+   useEffect(()=>{
+      if(activeSubdivision) dispatch(startSettingOptions());
+   }, [activeSubdivision, dispatch]);
 
 
    return (
@@ -63,6 +69,7 @@ const AddressForm = () => {
         
                <SelectCountry />
                <SelectSubdivision />
+               <SelectShippingOptions />
             
 
 

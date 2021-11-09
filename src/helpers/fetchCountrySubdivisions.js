@@ -1,12 +1,12 @@
 import { commerce } from '../lib/Commerce';
 
 export const fetchCountrySubdivisions = async (
-   token,
+   checkoutTokenId,
    countryCode
 ) => {
    const { subdivisions } =
       await commerce.services.localeListShippingSubdivisions(
-         token,   
+         checkoutTokenId,   
          countryCode
       );
 

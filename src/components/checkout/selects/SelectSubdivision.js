@@ -23,7 +23,6 @@ const SelectSubdivision = () => {
 
 
    return (
-      
       <GridItem colSpan={1}>
 
       <FormControl isRequired >
@@ -36,7 +35,6 @@ const SelectSubdivision = () => {
          >
             {
                Subdivisions.map(subdivision => <option key={subdivision.id} value= {subdivision.id}>   {subdivision.label} </option>)
-         
             }
          </Select>
       </FormControl>
