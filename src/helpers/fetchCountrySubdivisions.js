@@ -4,11 +4,11 @@ export const fetchCountrySubdivisions = async (
    checkoutTokenId,
    countryCode
 ) => {
-   const { subdivisions } =
+
+   const  { subdivisions } =
       await commerce.services.localeListShippingSubdivisions(
          checkoutTokenId,   
-         countryCode
-      );
+         countryCode);
 
    return subdivisions;
 };

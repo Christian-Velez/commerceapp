@@ -15,6 +15,12 @@ export const shippingReducer = (
    action
 ) => {
    switch (action.type) {
+
+      case types.RestartAll : 
+      return {
+         ...state,
+         shiping: initialShipping,
+      }
       case types.setCountries:
          return {
             ...state,

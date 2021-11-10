@@ -19,6 +19,15 @@ export const types = {
    setOptions: '[Shipping] Set shipping options',
    setActiveOption: '[Shipping] Set active option',
 
+   restartAll: '[Shipping] Restart all',
+
+
+
+   incrementStep: '[Checkout] Increment 1 to current step',
+   decrementStep: '[Checkout] Decrement 1 to current step',
+   setShippingData: '[Checkout] Set shipping data from address form',
+
+
    
 
    setToken: '[Token] Set checkout token',

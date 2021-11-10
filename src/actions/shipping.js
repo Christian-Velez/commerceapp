@@ -17,6 +17,7 @@ export const setShippingCountries = (
 export const startSettingShippingCountries =
    () => {
       return async (dispatch, getState) => {
+
          const { token } = getState().token;
 
          const countries =
@@ -68,6 +69,7 @@ export const startSettingSubdivisions = (
    countryCode
 ) => {
    return async (dispatch, getState) => {
+
       const { token } = getState().token;
 
       const subdivisions =
@@ -84,6 +86,7 @@ export const startSettingSubdivisions = (
       }));
 
       dispatch(setSubdivisions(arrSubdivisions));
+
       dispatch(
          setActiveSubdivision(
             arrSubdivisions[0].id
@@ -94,7 +97,10 @@ export const startSettingSubdivisions = (
 
 
 
+
+
 export const setActiveOption = (activeOption) => {
+   
    return {
       type: types.setActiveOption,
       payload: activeOption,
@@ -113,18 +119,33 @@ export const startSettingOptions = (
    region
 ) => {
    return async(dispatch, getState) => {
+
       const { token } = getState().token;
 
       //options is an array
+      
       const options = await fetchShippingOptions(
          token.id,
          country,
          region
       );
 
+      const formattedOptions = options.map(op => ({
+         id: op.id,
+         label: `${op.description} - (${op.price.formatted_with_symbol})`,
+         price: op.price.formatted_with_symbol,
+         priceRaw: op.price.raw,
+      }))
 
 
-      dispatch(setOptions(options));
-      dispatch(setActiveOption(options[0].id));
+
+      dispatch(setOptions(formattedOptions));
+
+      const activeOption = {
+         id: formattedOptions[0].id,
+         label: formattedOptions[0].label,
+         priceRaw: formattedOptions[0].priceRaw
+      }
+      dispatch(setActiveOption(activeOption));
    };
 };

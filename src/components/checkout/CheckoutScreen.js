@@ -11,12 +11,12 @@ import {
    useDispatch,
    useSelector,
 } from 'react-redux';
+import { useNavigate } from 'react-router';
 import { startSettingToken } from '../../actions/token';
 import LoadingScreen from '../loading/LoadingScreen';
-import AddressForm from './AddressForm';
-import CheckoutSummary from './CheckoutSummary';
+import AddressForm from './forms/AddressForm';
 import Confirmation from './Confirmation';
-import PaymentForm from './PaymentForm';
+import PaymentForm from './forms/PaymentForm';
 
 const steps = [
    'Shipping address',
@@ -24,8 +24,27 @@ const steps = [
 ];
 
 const CheckoutScreen = () => {
-   const [activeStep, setActiveStep] =
-      useState(0);
+
+   
+   
+   const navigate = useNavigate()
+   const { cart } = useSelector(
+      (state) => state.cart
+      );
+      
+      if(cart.total_items === 0){
+         navigate('/cart')
+      }
+      
+   const [activeStep, setActiveStep] = useState(0);
+   const [shippingData, setShippingData] = useState({});
+   const nextStep = () => setActiveStep(prevState => prevState + 1);
+   const backStep = () => setActiveStep(prevState => prevState - 1);
+   const next = (data) => {
+      setShippingData(data);
+      nextStep();
+   }
+
    const dispatch = useDispatch();
    const { token } = useSelector(
       (state) => state.token
@@ -33,9 +52,9 @@ const CheckoutScreen = () => {
 
    const Form = () =>
       activeStep === 0 ? (
-         <AddressForm />
+         <AddressForm next = {next} />
       ) : (
-         <PaymentForm />
+         <PaymentForm back={backStep}/>
       );
 
    useEffect(() => {
@@ -69,7 +88,6 @@ const CheckoutScreen = () => {
                <Form />
                : <LoadingScreen />
             )}
-            <CheckoutSummary />
          </Stack>
       </Flex>
    );

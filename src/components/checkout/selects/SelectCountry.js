@@ -4,7 +4,7 @@
 import React from 'react'
 import { GridItem, FormLabel, Select, FormControl } from '@chakra-ui/react'
 import { useDispatch, useSelector } from 'react-redux';
-import { setActiveCountry } from '../../../actions/shipping';
+import { setActiveCountry, setActiveSubdivision } from '../../../actions/shipping';
 
 const SelectCountry = () => {
    const dispatch = useDispatch()
@@ -15,6 +15,7 @@ const SelectCountry = () => {
 
    const handleActiveCountryChange = (e) =>{
       dispatch(setActiveCountry(e.target.value));
+      dispatch(setActiveSubdivision(null))
    }
 
 

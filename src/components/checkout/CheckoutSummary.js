@@ -1,6 +1,6 @@
 
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { 
    VStack,
    Heading,
@@ -13,11 +13,19 @@ import {
 } from '@chakra-ui/react'
 import { useSelector } from 'react-redux';
 const CheckoutSummary = () => {
+
    const isCompleted = true;
 
    const { cart } = useSelector(
       (state) => state.cart
    );
+
+   const { activeOption } = useSelector(state => state.shipping);
+
+  
+  
+   const formatNumber = (number) => (Math.round(number * 100) / 100).toFixed(2);
+   
 
 
    return (
@@ -53,7 +61,11 @@ const CheckoutSummary = () => {
                justifyContent='space-between'
             >
                <Text fontWeight='bold' fontSize='sm'>Shipping</Text>
-               <Text> $300 </Text>
+               <Text>  
+               { 
+                  activeOption.priceRaw && `$${ formatNumber(activeOption.priceRaw) }`
+            
+               } </Text>
             </HStack>
          </VStack>
 
@@ -63,23 +75,15 @@ const CheckoutSummary = () => {
                justifyContent='space-between'
             >
                <Text fontWeight='bold' fontSize='md'>Total</Text>
-               <Text> $xxx </Text>
+               <Text>
+               { 
+                  activeOption.priceRaw && `$${ formatNumber(cart.subtotal.raw + activeOption.priceRaw) }`
+            
+               }
+               </Text>
             </HStack>
 
-         <Button
-            disabled={isCompleted}
-            borderRadius='0'
-            size='lg'
-            fontSize='md'
-            bgColor='brand.200'
-            _hover={{
-               bgColor: 'brand.300',
-            }}
-            width='full'
-            // onClick = { ()=> { navigate('/checkout') }}
-         >
-            ALMOST DONE
-         </Button>
+        
       </VStack>
    )
 }

@@ -8,18 +8,21 @@ import {
    FormLabel,
    Select,
 } from '@chakra-ui/react'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { setActiveOption } from '../../../actions/shipping';
 
 const SelectShippingOptions = () => {
-
+   const dispatch = useDispatch();
 
    const { 
       Options
    } = useSelector(state => state.shipping);
 
-   const handleActiveSubdivisionChange = () => {
-      console.log('cambio ')
+   const handleActiveOptionChange = (e) => {
+      const objValue = JSON.parse(e.target.value);
+      dispatch(setActiveOption(objValue));
    }
+
 
    return (
       <GridItem colSpan={1}>
@@ -30,11 +33,11 @@ const SelectShippingOptions = () => {
 
          <Select 
             variant='filled'
-            onChange={ handleActiveSubdivisionChange }
+            onChange={ handleActiveOptionChange }
          >
-            {/* {
-               Options.map(option => <option key={option.id} value= {option.id}>   {option.label} </option>)
-            } */}
+            {
+               Options.map(option => <option key={option.id} value= {JSON.stringify({id: option.id, label: option.label , priceRaw:option.priceRaw})}>   {option.label} </option>)
+            }
          </Select>
       </FormControl>
    </GridItem>
