@@ -1,76 +1,125 @@
-
-
-import { 
+import {
    VStack,
    Button,
-   SimpleGrid,
-   HStack,
+
    Heading,
-} from '@chakra-ui/react'
-import React from 'react'
-import FormInput from './FormInput'
+} from '@chakra-ui/react';
+import React from 'react';
+
 
 import {
-   useForm,
-   FormProvider,
-} from 'react-hook-form';
-import { useNavigate } from 'react-router';
-
-import { Element, CardElement, ElementsConsumer } from '@stripe/react-stripe-js'
+   Elements,
+   CardElement,
+   ElementsConsumer,
+} from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { prepareOrderData } from '../../../helpers/prepareOrderData';
+import { startSettingOrder } from '../../../actions/order';
+import { startRefreshingCart } from '../../../actions/cart';
 
+const PaymentForm = ({ back, shippingData, nextStep }) => {
+   const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
 
-const PaymentForm = ({back}) => {
-
+   
    const { token } = useSelector(state => state.token);
-   console.log(token)
+   const dispatch = useDispatch();
+
+
+   console.log(shippingData);
+
+
+   const handleSubmit = async (event, elements, stripe) =>{
+      event.preventDefault();
+      if(!stripe || !elements) return;      
+      
+      const cardElement = elements.getElement(CardElement);
+
+      const { error  , paymentMethod } = await stripe.createPaymentMethod({
+         type: 'card',
+         card: cardElement,
+      });
+
+
+      if(error){
+         console.log(error)
+      }
+      else{
+         const orderData = prepareOrderData(token, shippingData, paymentMethod);
+
+         dispatch(startSettingOrder(token.id, orderData));
+         dispatch(startRefreshingCart());
+         nextStep();         
+      }
+   }
+
+
 
    return (
       <VStack
-      width={{
-         base: 'full',
-         lg: 'full',
-      }}
-      padding='1rem'
-      alignItems='flex-start'
-      justifyContent='center'
-      bgColor='red'
-      marginBottom='4rem'
-      spacing={10}
-   >
+         width={{base:'full', lg:'60%'}}
+         padding='1rem'
 
-      
-         <Button
-             borderRadius='0'
-             size='lg'
-             fontSize='md'
-             borderColor='brand.300'
-             variant='outline'
-             _hover={{
-                bgColor: 'brand.50',
-             }}
-             width='full'
-             onClick={ () => { back() }}
-         > Back </Button>
-         
-         <Button type='submit'
-             borderRadius='0'
-             size='lg'
-             fontSize='md'
-             bgColor='brand.200'
-             _hover={{
-                bgColor: 'brand.300',
-             }}
-             width='full'
-         > Pay </Button>
+         alignItems='flex-start'
+         justifyContent='center'
+         margin='auto'
+         spacing={10}
 
-      
-         
+         p={10}
+      >
+         <Heading size='md'>
+            Payment method
+         </Heading>
 
-    
-   </VStack>
-   )
-}
+         <Elements stripe={stripePromise} >
+            <ElementsConsumer>
+               {({ elements, stripe }) => (
+                  <form style={{width:'100%'}} onSubmit={(e)=> { handleSubmit(e, elements, stripe) }}>
 
-export default PaymentForm
+
+
+                     <CardElement />
+
+                     <VStack width='full' mt={5}>
+                     
+                     <Button
+                        borderRadius='0'
+                        size='lg'
+                        fontSize='md'
+                        borderColor='brand.300'
+                        variant='outline'
+                        _hover={{
+                           bgColor: 'brand.50',
+                        }}
+                        width='full'
+                        onClick={() => {
+                           back();
+                        }}
+                     >
+                        Back
+                     </Button>
+
+                     <Button
+                        type='submit'
+                        borderRadius='0'
+                        disabled={!stripe}
+                        size='lg'
+                        fontSize='md'
+                        bgColor='brand.200'
+                        _hover={{
+                           bgColor: 'brand.300',
+                        }}
+                        width='full'
+                     >
+                        Pay {  token.live.subtotal.formatted_with_symbol }
+                     </Button>
+                     </VStack>
+                  </form>
+               )}
+            </ElementsConsumer>
+         </Elements>
+      </VStack>
+   );
+};
+
+export default PaymentForm;

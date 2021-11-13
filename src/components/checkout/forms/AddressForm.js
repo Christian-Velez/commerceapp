@@ -4,6 +4,7 @@ import {
    Button,
    SimpleGrid,
    HStack,
+   Stack,
    Heading,
 } from '@chakra-ui/react';
 import {
@@ -12,7 +13,7 @@ import {
 } from 'react-hook-form';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { setActiveSubdivision, startSettingOptions, startSettingShippingCountries, startSettingSubdivisions } from '../../../actions/shipping';
+import { startSettingOptions , startSettingShippingCountries, startSettingSubdivisions } from '../../../actions/shipping';
 import FormInput from './FormInput';
 import SelectCountry from '../selects/SelectCountry';
 import SelectSubdivision from '../selects/SelectSubdivision';
@@ -25,6 +26,12 @@ const AddressForm = ({next}) => {
    const methods = useForm();
    const dispatch = useDispatch();
    const navigate = useNavigate();
+
+   const { cart } = useSelector(
+      (state) => state.cart
+   );
+
+   const isEmpty = cart.line_items.length === 0;
 
    const { 
       activeCountry, 
@@ -57,7 +64,13 @@ const AddressForm = ({next}) => {
 
    return (
 
-      <HStack width='full' alignItems='flex-start' justifyContent='space-between'>
+      <Stack 
+         direction={{base:'column', lg:'row'}}
+         width='full'
+         alignItems='flex-start'
+         justifyContent='space-between'
+         
+      >
 
       <VStack
          width={{base:'full', lg:'65%'}}
@@ -79,10 +92,10 @@ const AddressForm = ({next}) => {
        
             <SimpleGrid columns={2} width='full' columnGap={3} rowGap={2}>
 
-               <FormInput label='First name' name='first-name' colSpan={1} required methods={methods}/>
-               <FormInput label='Last name' name='last-name' colSpan={1} required methods={methods}/>
+               <FormInput label='First name' name='firstname' colSpan={1} required methods={methods}/>
+               <FormInput label='Last name' name='lastname' colSpan={1} required methods={methods}/>
 
-               <FormInput label='Address' name='address' colSpan={2} required methods={methods}/>
+               <FormInput label='Address' name='address1' colSpan={2} required methods={methods}/>
                <FormInput label='Email' name='email' colSpan={2} required methods={methods}/>
                <FormInput label='City' name='city' colSpan={1} required methods={methods}/>
                <FormInput label='ZIP / Postal code' colSpan={1} name='zip' required methods={methods}/>
@@ -111,6 +124,7 @@ const AddressForm = ({next}) => {
                   > Back to cart</Button>
             
             <Button type='submit'
+               disabled={isEmpty}
                 borderRadius='0'
                 size='lg'
                 fontSize='md'
@@ -133,7 +147,7 @@ const AddressForm = ({next}) => {
       
             <CheckoutSummary />
                   
-      </HStack>
+      </Stack>
    );
 };
 

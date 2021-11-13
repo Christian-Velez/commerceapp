@@ -1,11 +1,10 @@
 
 
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { 
    VStack,
    Heading,
    Divider,
-   Button,
    HStack,
    Text, 
 
@@ -14,7 +13,6 @@ import {
 import { useSelector } from 'react-redux';
 const CheckoutSummary = () => {
 
-   const isCompleted = true;
 
    const { cart } = useSelector(
       (state) => state.cart

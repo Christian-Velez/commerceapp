@@ -77,3 +77,11 @@ export const startRemovingFromCart = (
       dispatch(updateCart(cart));
    };
 };
+
+
+export const startRefreshingCart = () => {
+   return async(dispatch) => {
+      const emptyCart = await commerce.cart.refresh();
+      dispatch(setCart(emptyCart));
+   }
+}

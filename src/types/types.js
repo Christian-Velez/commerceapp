@@ -28,6 +28,10 @@ export const types = {
    setShippingData: '[Checkout] Set shipping data from address form',
 
 
+   setOrder: '[Order] Set final order',
+   setOrderError: '[Order] Handle order error',
+
+
    
 
    setToken: '[Token] Set checkout token',

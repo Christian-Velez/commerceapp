@@ -27,14 +27,7 @@ const CheckoutScreen = () => {
 
    
    
-   const navigate = useNavigate()
-   const { cart } = useSelector(
-      (state) => state.cart
-      );
-      
-      if(cart.total_items === 0){
-         navigate('/cart')
-      }
+   
       
    const [activeStep, setActiveStep] = useState(0);
    const [shippingData, setShippingData] = useState({});
@@ -54,7 +47,7 @@ const CheckoutScreen = () => {
       activeStep === 0 ? (
          <AddressForm next = {next} />
       ) : (
-         <PaymentForm back={backStep}/>
+         <PaymentForm back={backStep} shippingData={shippingData} nextStep={nextStep}/>
       );
 
    useEffect(() => {
