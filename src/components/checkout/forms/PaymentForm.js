@@ -16,7 +16,6 @@ import { loadStripe } from '@stripe/stripe-js';
 import { useDispatch, useSelector } from 'react-redux';
 import { prepareOrderData } from '../../../helpers/prepareOrderData';
 import { startSettingOrder } from '../../../actions/order';
-import { startRefreshingCart } from '../../../actions/cart';
 
 const PaymentForm = ({ back, shippingData, nextStep }) => {
    const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
@@ -26,11 +25,12 @@ const PaymentForm = ({ back, shippingData, nextStep }) => {
    const dispatch = useDispatch();
 
 
-   console.log(shippingData);
 
 
    const handleSubmit = async (event, elements, stripe) =>{
       event.preventDefault();
+
+      
       if(!stripe || !elements) return;      
       
       const cardElement = elements.getElement(CardElement);
@@ -42,14 +42,12 @@ const PaymentForm = ({ back, shippingData, nextStep }) => {
 
 
       if(error){
-         console.log(error)
+         // console.log(error)
       }
       else{
          const orderData = prepareOrderData(token, shippingData, paymentMethod);
 
-         dispatch(startSettingOrder(token.id, orderData));
-         dispatch(startRefreshingCart());
-         nextStep();         
+         dispatch(startSettingOrder(token.id, orderData, nextStep));
       }
    }
 

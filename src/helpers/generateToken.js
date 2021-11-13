@@ -1,6 +1,6 @@
 import { commerce } from '../lib/Commerce';
 
-export const generateToken = async (cart) => {
+export const generateToken = async (cart, navigate) => {
    try {
       const token =
          await commerce.checkout.generateToken(
@@ -11,7 +11,7 @@ export const generateToken = async (cart) => {
 
          return token;
    } catch (err) {
-      return 'error setting the token';
+      navigate('/');
 
    }
 };

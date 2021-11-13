@@ -7,21 +7,24 @@ import { startRefreshingCart } from "./cart";
 
 
 
-export const startSettingOrder = (checkoutTokenId, newOrder) => {
+export const startSettingOrder = (checkoutTokenId, newOrder, nextStep) => {
    return async(dispatch) => {
       
+      nextStep();
+      
       try{
+
+
          const incomingOrder = await commerce.checkout.capture(checkoutTokenId, newOrder);
 
 
-         setOrder(incomingOrder);
-         startRefreshingCart();
+         dispatch(setOrder(incomingOrder));
+         dispatch(startRefreshingCart());
+
 
       }
-      catch(error){
-         console.log(error.data.error.message);
-         
-         // setOrderError(e);
+      catch(error){  
+         dispatch(setOrderError(error.data.error.message));
       }
 
    }

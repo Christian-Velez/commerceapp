@@ -29,7 +29,7 @@ export const types = {
 
 
    setOrder: '[Order] Set final order',
-   setOrderError: '[Order] Handle order error',
+   setOrderError: '[Order] Set order error',
 
 
    

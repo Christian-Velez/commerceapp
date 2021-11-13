@@ -24,8 +24,8 @@ const steps = [
 ];
 
 const CheckoutScreen = () => {
-
    
+   const navigate = useNavigate();
    
    
       
@@ -51,8 +51,8 @@ const CheckoutScreen = () => {
       );
 
    useEffect(() => {
-      dispatch(startSettingToken());
-   }, [dispatch]);
+      dispatch(startSettingToken(navigate));
+   }, [dispatch, navigate]);
 
    return (
       <Flex

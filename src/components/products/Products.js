@@ -5,7 +5,11 @@ import Product from './Product';
 import { useSelector } from 'react-redux';
 import { Flex } from '@chakra-ui/react';
 
+
 const Products = () => {
+
+
+
    const { products } = useSelector(
       (state) => state.products
    );
